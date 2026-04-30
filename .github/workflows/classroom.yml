@@ -1,0 +1,97 @@
+name: Pruebas automáticas (Classroom)
+
+on:
+  push:
+  workflow_dispatch:
+  repository_dispatch:
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Estructura base del proyecto
+        id: test-base-structure
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: "index.html + carpetas css/ e img/"
+          command: "bash scripts/classroom-check.sh base-structure"
+          expected-output: "CORRECTO"
+          comparison-method: exact
+          timeout: 10
+          max-score: 15
+
+      - name: Hoja de estilos enlazada
+        id: test-css-linked
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: "css/style.css presente y enlazado"
+          command: "bash scripts/classroom-check.sh css-linked"
+          expected-output: "CORRECTO"
+          comparison-method: exact
+          timeout: 10
+          max-score: 15
+
+      - name: Uso de display grid
+        id: test-grid-display
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: "Se usa display:grid en el CSS"
+          command: "bash scripts/classroom-check.sh grid-display"
+          expected-output: "CORRECTO"
+          comparison-method: exact
+          timeout: 10
+          max-score: 20
+
+      - name: Definición de columnas en grid
+        id: test-grid-template
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: "Se usa grid-template-columns"
+          command: "bash scripts/classroom-check.sh grid-template"
+          expected-output: "CORRECTO"
+          comparison-method: exact
+          timeout: 10
+          max-score: 20
+
+      - name: Enfoque mobile first
+        id: test-mobile-first
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: "Hay media query con min-width"
+          command: "bash scripts/classroom-check.sh mobile-first"
+          expected-output: "CORRECTO"
+          comparison-method: exact
+          timeout: 10
+          max-score: 15
+
+      - name: Grid responsive para desktop
+        id: test-desktop-grid
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: "En @media (min-width) se redefine grid-template-columns"
+          command: "bash scripts/classroom-check.sh desktop-grid"
+          expected-output: "CORRECTO"
+          comparison-method: exact
+          timeout: 10
+          max-score: 15
+
+      - name: Informe de resultados para Classroom
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          TEST-BASE-STRUCTURE_RESULTS: "${{ steps.test-base-structure.outputs.result }}"
+          TEST-CSS-LINKED_RESULTS: "${{ steps.test-css-linked.outputs.result }}"
+          TEST-GRID-DISPLAY_RESULTS: "${{ steps.test-grid-display.outputs.result }}"
+          TEST-GRID-TEMPLATE_RESULTS: "${{ steps.test-grid-template.outputs.result }}"
+          TEST-MOBILE-FIRST_RESULTS: "${{ steps.test-mobile-first.outputs.result }}"
+          TEST-DESKTOP-GRID_RESULTS: "${{ steps.test-desktop-grid.outputs.result }}"
+        with:
+          runners: test-base-structure,test-css-linked,test-grid-display,test-grid-template,test-mobile-first,test-desktop-grid
