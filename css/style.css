@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,24 +6,263 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f3f3f3;
-  color: #1f1f1f;
+  font-family: 'Roboto', sans-serif;
+  background: white;
 }
 
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #fff;
+   border-bottom: 1px solid #ccc; 
+}
+
+.header input {
+  width: 300px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.avatar-header {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* MAIN */
+/* CONTENEDOR GENERAL */
 .container {
-  width: min(100%, 960px);
+  display: flex;
+  gap: 40px;
+  padding: 20px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 1rem;
 }
 
+/* EVITA QUE LAS IMÁGENES SE DESCONTROLEN */
 img {
-  display: block;
   max-width: 100%;
   height: auto;
 }
 
-/* TODO alumno:
-   Aplicar Grid en .exercice y .excercice-incomplete
-   con enfoque Mobile First + media queries.
-*/
+/* COLUMNA IZQUIERDA */
+.feed {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* HISTORIAS */
+.historias {
+  display: flex;
+  gap: 15px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #A49B9B;
+}
+
+/* 🔥 CADA HISTORIA EN RECTÁNGULO */
+.historia {
+  width: 70px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.historia img {
+  width: 55px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* POST */
+.post {
+  background: #fff;
+  padding: 15px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #A49B9B;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  
+}
+
+.post-header-izq {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-post {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.post-header img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.post-header span {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.post-img {
+  width: 488px;
+  max-height: 488px;
+  display: block;
+  margin: 10px auto;
+}
+
+.post h4 {
+  font-family: 'Inter', sans-serif;
+  color: #A49B9B;
+  font-size: 10px;
+}
+
+.post p{
+  font-family: 'inter', sans-serif;
+  font-size: 10px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.acciones {
+  display: flex;
+  gap: 18px; /* 🔥 más espacio entre iconos */
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 300px;
+}
+
+.sugerencia {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.sugerencia img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.sugerencia span {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.sugerencia a {
+  color: #0095f6;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* PERFIL SUPERIOR */
+.perfil {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.perfil-izq {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.perfil img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.perfil-info strong {
+  font-size: 14px;
+}
+
+.perfil-info span {
+  font-size: 12px;
+  color: gray;
+}
+
+.perfil a {
+  color: #0095f6;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/* TITULO */
+.sidebar h4 {
+  color: gray;
+  font-family: 'Inter';
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+  }
+
+  .historia:nth-child(n+5){
+    display: none ;
+  }
+
+  .post-img{
+    max-width: 100%;
+  }
+
+  .sidebar {
+    display: none; 
+  }
+
+  .historias {
+    justify-content: space-between;
+  }
+
+  .historia{
+    width: 22%;
+    max-width: none;
+  }
+
+  .header input {
+    display: none;
+  }
+
+   .header {
+    justify-content: space-between;
+  }
+}
